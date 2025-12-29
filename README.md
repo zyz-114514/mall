@@ -144,28 +144,28 @@ shopping-mall/
 ## 敏捷开发迭代
 
 ### Sprint 1 - 基础架构 
-- [x] 搭建SSM框架
-- [x] 配置数据库连接
-- [x] 设计数据库表结构
-- [x] 实现基础CRUD
+-  搭建SSM框架
+-  配置数据库连接
+-  设计数据库表结构
+-  实现基础CRUD
 
 ### Sprint 2 - 核心功能 
-- [x] 用户注册登录
-- [x] 商品展示和搜索
-- [x] 购物车功能
-- [x] 订单创建
+-  用户注册登录
+-  商品展示和搜索
+-  购物车功能
+-  订单创建
 
 ### Sprint 3 - 管理功能 
-- [x] 管理员后台
-- [x] 商品管理
-- [x] 订单管理
-- [x] 用户管理
+-  管理员后台
+-  商品管理
+-  订单管理
+-  用户管理
 
 ### Sprint 4 - 测试优化 
-- [x] 编写单元测试
-- [x] 代码重构优化
-- [x] 异常处理完善
-- [x] 文档编写
+-  编写单元测试
+-  代码重构优化
+-  异常处理完善
+-  文档编写
 
 ## 数据库设计
 
@@ -179,22 +179,6 @@ shopping-mall/
 - **order_item** - 订单明细表
 
 详细设计见 `database/schema.sql`
-
-## 开发规范
-
-### 代码规范
-- 遵循阿里巴巴Java开发手册
-- 使用Lombok简化代码
-- 统一异常处理
-- 完善的注释文档
-
-### Git提交规范
-- `feat`: 新功能
-- `fix`: 修复bug
-- `docs`: 文档更新
-- `refactor`: 代码重构
-- `test`: 测试相关
-- `chore`: 构建/工具变动
 
 ## API接口
 
@@ -220,26 +204,15 @@ shopping-mall/
 - `GET /order/list` - 订单列表
 - `GET /order/{id}` - 订单详情
 
-## 贡献指南
+##  作者
 
-欢迎提交Issue和Pull Request！
+- **赵宇哲** -
+- **王嘉艺** -
+- **徐宏成** -
+- **孙永超** -
 
-1. Fork本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'feat: Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交Pull Request
-## 👨‍💻 作者
-
-- **zyz-114514** - [GitHub](https://github.com/zyz-114514)
-
-## 致谢
-
-- Spring Framework
-- MyBatis
-- Bootstrap
-- 所有开源贡献者
-
----
-
-⭐ 如果这个项目对你有帮助，请给个Star支持一下！
+##  小组分工
+- 赵宇哲：管理功能
+- 王嘉艺：核心功能
+- 徐宏成：测试优化
+- 孙永超：基础架构
