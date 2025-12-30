@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * 购物车服务测试类
+ * Cart Service Test Class
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-context.xml"})
@@ -29,7 +29,7 @@ public class CartServiceTest {
     @Test
     public void testAddToCart() {
         boolean result = cartService.addToCart(TEST_USER_ID, TEST_PRODUCT_ID, 2);
-        assertTrue("添加到购物车应该成功", result);
+        assertTrue("Add to cart should succeed", result);
     }
 
     @Test
@@ -37,8 +37,8 @@ public class CartServiceTest {
         cartService.addToCart(TEST_USER_ID, TEST_PRODUCT_ID, 1);
         
         List<CartVO> cartList = cartService.getCartList(TEST_USER_ID);
-        assertNotNull("购物车列表不应为空", cartList);
-        assertTrue("购物车应该有商品", cartList.size() > 0);
+        assertNotNull("Cart list should not be null", cartList);
+        assertTrue("Cart should have items", cartList.size() > 0);
     }
 
     @Test
@@ -49,10 +49,10 @@ public class CartServiceTest {
         Long cartId = cartList.get(0).getId();
         
         boolean result = cartService.updateQuantity(cartId, 5);
-        assertTrue("更新数量应该成功", result);
+        assertTrue("Update quantity should succeed", result);
         
         cartList = cartService.getCartList(TEST_USER_ID);
-        assertEquals("数量应该已更新", Integer.valueOf(5), cartList.get(0).getQuantity());
+        assertEquals("Quantity should be updated", Integer.valueOf(5), cartList.get(0).getQuantity());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CartServiceTest {
         Long cartId = cartList.get(0).getId();
         
         boolean result = cartService.updateChecked(cartId, 0);
-        assertTrue("更新选中状态应该成功", result);
+        assertTrue("Update checked status should succeed", result);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class CartServiceTest {
         Long cartId = cartList.get(0).getId();
         
         boolean result = cartService.deleteCart(cartId);
-        assertTrue("删除购物车项应该成功", result);
+        assertTrue("Delete cart item should succeed", result);
     }
 
     @Test
@@ -89,9 +89,9 @@ public class CartServiceTest {
         }
         
         boolean result = cartService.deleteCartItems(cartIds);
-        assertTrue("清空购物车应该成功", result);
+        assertTrue("Clear cart should succeed", result);
         
         cartList = cartService.getCartList(TEST_USER_ID);
-        assertEquals("购物车应该为空", 0, cartList.size());
+        assertEquals("Cart should be empty", 0, cartList.size());
     }
 }

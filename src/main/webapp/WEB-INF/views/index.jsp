@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页 - 在线商品销售平台</title>
+    <title>Home - Shopping Mall</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -33,15 +33,15 @@
 
     <div class="container mt-4">
         <div class="jumbotron">
-            <h1 class="display-4">欢迎来到购物商城</h1>
-            <p class="lead">精选优质商品，品质保证，价格实惠</p>
+            <h1 class="display-4">Welcome to Shopping Mall</h1>
+            <p class="lead">Selected quality products, guaranteed quality, affordable prices</p>
             <hr class="my-4">
-            <p>立即开始购物之旅</p>
-            <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/product/list" role="button">浏览商品</a>
+            <p>Start your shopping journey now</p>
+            <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/product/list" role="button">Browse Products</a>
         </div>
 
         <div class="mb-4">
-            <h4>商品分类</h4>
+            <h4>Product Categories</h4>
             <div>
                 <c:forEach items="${categories}" var="category">
                     <a href="${pageContext.request.contextPath}/product/list?categoryId=${category.id}" 
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <h3 class="mb-4">热门商品</h3>
+        <h3 class="mb-4">Hot Products</h3>
         <div class="row">
             <c:forEach items="${productList}" var="product" varStatus="status">
                 <c:if test="${status.index < 8}">
@@ -61,11 +61,11 @@
                                 <p class="card-text text-muted">${product.subtitle}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="text-danger font-weight-bold">¥<fmt:formatNumber value="${product.price}" pattern="#,##0.00"/></span>
-                                    <span class="text-muted">库存: ${product.stock}</span>
+                                    <span class="text-muted">Stock: ${product.stock}</span>
                                 </div>
                                 <div class="mt-3">
-                                    <a href="${pageContext.request.contextPath}/product/detail/${product.id}" class="btn btn-sm btn-outline-primary">查看详情</a>
-                                    <button class="btn btn-sm btn-primary" onclick="addToCart(${product.id})">加入购物车</button>
+                                    <a href="${pageContext.request.contextPath}/product/detail/${product.id}" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    <button class="btn btn-sm btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
         function addToCart(productId) {
             <c:choose>
                 <c:when test="${empty sessionScope.user}">
-                    alert('请先登录');
+                    alert('Please login first');
                     window.location.href = '${pageContext.request.contextPath}/user/login';
                 </c:when>
                 <c:otherwise>
@@ -92,7 +92,7 @@
                         quantity: 1
                     }, function(result) {
                         if (result.code === 200) {
-                            alert('添加成功');
+                            alert('Added successfully');
                         } else {
                             alert(result.message);
                         }

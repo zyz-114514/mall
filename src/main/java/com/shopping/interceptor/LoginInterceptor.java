@@ -18,12 +18,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            logger.warn("未登录访问: {}", request.getRequestURI());
+            logger.warn("Unauthorized access: {}", request.getRequestURI());
             
             String requestType = request.getHeader("X-Requested-With");
             if ("XMLHttpRequest".equals(requestType)) {
                 response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().write("{\"code\":401,\"message\":\"请先登录\"}");
+                response.getWriter().write("{\"code\":401,\"message\":\"Please login first\"}");
             } else {
                 response.sendRedirect(request.getContextPath() + "/user/login");
             }

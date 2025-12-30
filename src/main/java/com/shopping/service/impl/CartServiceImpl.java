@@ -29,7 +29,7 @@ public class CartServiceImpl implements CartService {
     @Transactional(rollbackFor = Exception.class)
     public boolean addToCart(Long userId, Long productId, Integer quantity) {
         if (userId == null || productId == null) {
-            throw new BusinessException("参数不能为空");
+            throw new BusinessException("Parameters cannot be empty");
         }
         if (quantity == null || quantity <= 0) {
             quantity = 1;
@@ -37,25 +37,25 @@ public class CartServiceImpl implements CartService {
 
         Product product = productMapper.selectById(productId);
         if (product == null) {
-            throw new BusinessException("商品不存在");
+            throw new BusinessException("Product does not exist");
         }
         if (product.getStatus() == 0) {
-            throw new BusinessException("商品已下架");
+            throw new BusinessException("Product is off the shelf");
         }
         if (product.getStock() < quantity) {
-            throw new BusinessException("商品库存不足");
+            throw new BusinessException("Product is out of stock");
         }
 
         Cart existCart = cartMapper.selectByUserIdAndProductId(userId, productId);
         if (existCart != null) {
             int newQuantity = existCart.getQuantity() + quantity;
             if (product.getStock() < newQuantity) {
-                throw new BusinessException("商品库存不足");
+                throw new BusinessException("Product is out of stock");
             }
             existCart.setQuantity(newQuantity);
             int result = cartMapper.updateById(existCart);
             if (result > 0) {
-                logger.info("更新购物车成功: userId={}, productId={}", userId, productId);
+                logger.info("Cart updated successfully: userId={}, productId={}", userId, productId);
                 return true;
             }
         } else {
@@ -66,7 +66,7 @@ public class CartServiceImpl implements CartService {
             cart.setChecked(1);
             int result = cartMapper.insert(cart);
             if (result > 0) {
-                logger.info("添加到购物车成功: userId={}, productId={}", userId, productId);
+                logger.info("Added to cart successfully: userId={}, productId={}", userId, productId);
                 return true;
             }
         }
@@ -76,7 +76,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartVO> getCartList(Long userId) {
         if (userId == null) {
-            throw new BusinessException("用户ID不能为空");
+            throw new BusinessException("User ID cannot be empty");
         }
         return cartMapper.selectByUserId(userId);
     }
@@ -85,20 +85,20 @@ public class CartServiceImpl implements CartService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateQuantity(Long cartId, Integer quantity) {
         if (cartId == null || quantity == null || quantity <= 0) {
-            throw new BusinessException("参数错误");
+            throw new BusinessException("Invalid parameters");
         }
 
         Cart cart = cartMapper.selectById(cartId);
         if (cart == null) {
-            throw new BusinessException("购物车项不存在");
+            throw new BusinessException("Cart item does not exist");
         }
 
         Product product = productMapper.selectById(cart.getProductId());
         if (product == null || product.getStatus() == 0) {
-            throw new BusinessException("商品不存在或已下架");
+            throw new BusinessException("Product does not exist or is off the shelf");
         }
         if (product.getStock() < quantity) {
-            throw new BusinessException("商品库存不足");
+            throw new BusinessException("Product is out of stock");
         }
 
         int result = cartMapper.updateQuantity(cartId, quantity);
@@ -109,7 +109,7 @@ public class CartServiceImpl implements CartService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateChecked(Long cartId, Integer checked) {
         if (cartId == null || checked == null) {
-            throw new BusinessException("参数错误");
+            throw new BusinessException("Invalid parameters");
         }
 
         int result = cartMapper.updateChecked(cartId, checked);
@@ -120,7 +120,7 @@ public class CartServiceImpl implements CartService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateAllChecked(Long userId, Integer checked) {
         if (userId == null || checked == null) {
-            throw new BusinessException("参数错误");
+            throw new BusinessException("Invalid parameters");
         }
 
         int result = cartMapper.updateAllChecked(userId, checked);
@@ -131,7 +131,7 @@ public class CartServiceImpl implements CartService {
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteCart(Long cartId) {
         if (cartId == null) {
-            throw new BusinessException("购物车ID不能为空");
+            throw new BusinessException("Cart ID cannot be empty");
         }
 
         int result = cartMapper.deleteById(cartId);
@@ -142,7 +142,7 @@ public class CartServiceImpl implements CartService {
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteCartItems(List<Long> cartIds) {
         if (cartIds == null || cartIds.isEmpty()) {
-            throw new BusinessException("购物车ID列表不能为空");
+            throw new BusinessException("Cart ID list cannot be empty");
         }
 
         int result = cartMapper.deleteByIds(cartIds);

@@ -5,14 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人信息 - 在线商品销售平台</title>
+    <title>Profile - Shopping Mall</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
 </head>
 <body>
     <jsp:include page="../common/header.jsp"/>
 
     <div class="container mt-4">
-        <h3>个人信息管理</h3>
+        <h3>Profile Management</h3>
         <hr>
 
         <div class="row">
@@ -21,38 +21,38 @@
                     <div class="card-body">
                         <form id="profileForm">
                             <div class="form-group">
-                                <label>用户名</label>
+                                <label>Username</label>
                                 <input type="text" class="form-control" value="${user.username}" readonly>
                             </div>
                             <div class="form-group">
-                                <label>真实姓名</label>
+                                <label>Real Name</label>
                                 <input type="text" class="form-control" id="realName" value="${user.realName}">
                             </div>
                             <div class="form-group">
-                                <label>邮箱</label>
+                                <label>Email</label>
                                 <input type="email" class="form-control" id="email" value="${user.email}">
                             </div>
                             <div class="form-group">
-                                <label>手机号</label>
+                                <label>Phone</label>
                                 <input type="text" class="form-control" id="phone" value="${user.phone}">
                             </div>
                             <div class="form-group">
-                                <label>收货地址</label>
+                                <label>Shipping Address</label>
                                 <textarea class="form-control" id="address" rows="3">${user.address}</textarea>
                             </div>
                             <hr>
-                            <h5>修改密码（不修改请留空）</h5>
+                            <h5>Change Password (leave blank if not changing)</h5>
                             <div class="form-group">
-                                <label>新密码</label>
-                                <input type="password" class="form-control" id="newPassword" placeholder="不修改请留空">
+                                <label>New Password</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="Leave blank if not changing">
                             </div>
                             <div class="form-group">
-                                <label>确认新密码</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="不修改请留空">
+                                <label>Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Leave blank if not changing">
                             </div>
                             <div class="text-right">
-                                <button type="button" class="btn btn-secondary" onclick="history.back()">返回</button>
-                                <button type="submit" class="btn btn-primary">保存修改</button>
+                                <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </form>
                     </div>
@@ -73,7 +73,7 @@
             var confirmPassword = $('#confirmPassword').val();
 
             if (newPassword && newPassword !== confirmPassword) {
-                alert('两次输入的密码不一致');
+                alert('Passwords do not match');
                 return;
             }
 
@@ -95,14 +95,14 @@
                 data: JSON.stringify(data),
                 success: function(result) {
                     if (result.code === 200) {
-                        alert('修改成功');
+                        alert('Update successful');
                         location.reload();
                     } else {
                         alert(result.message);
                     }
                 },
                 error: function() {
-                    alert('修改失败，请稍后重试');
+                    alert('Update failed, please try again later');
                 }
             });
         });

@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsByCategoryId(Long categoryId) {
         if (categoryId == null) {
-            throw new BusinessException("分类ID不能为空");
+            throw new BusinessException("Category ID cannot be empty");
         }
         return productMapper.selectByCategoryId(categoryId);
     }
@@ -48,11 +48,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Long id) {
         if (id == null) {
-            throw new BusinessException("商品ID不能为空");
+            throw new BusinessException("Product ID cannot be empty");
         }
         Product product = productMapper.selectById(id);
         if (product == null) {
-            throw new BusinessException("商品不存在");
+            throw new BusinessException("Product does not exist");
         }
         return product;
     }
@@ -74,10 +74,10 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(rollbackFor = Exception.class)
     public boolean addProduct(Product product) {
         if (product == null) {
-            throw new BusinessException("商品信息不能为空");
+            throw new BusinessException("Product information cannot be empty");
         }
         if (product.getName() == null || product.getPrice() == null) {
-            throw new BusinessException("商品名称和价格不能为空");
+            throw new BusinessException("Product name and price cannot be empty");
         }
 
         if (product.getStatus() == null) {
@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
 
         int result = productMapper.insert(product);
         if (result > 0) {
-            logger.info("添加商品成功: {}", product.getName());
+            logger.info("Product added successfully: {}", product.getName());
             return true;
         }
         return false;
@@ -99,12 +99,12 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateProduct(Product product) {
         if (product == null || product.getId() == null) {
-            throw new BusinessException("商品信息不完整");
+            throw new BusinessException("Product information is incomplete");
         }
 
         int result = productMapper.updateById(product);
         if (result > 0) {
-            logger.info("更新商品成功: {}", product.getId());
+            logger.info("Product updated successfully: {}", product.getId());
             return true;
         }
         return false;
@@ -114,12 +114,12 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteProduct(Long id) {
         if (id == null) {
-            throw new BusinessException("商品ID不能为空");
+            throw new BusinessException("Product ID cannot be empty");
         }
 
         int result = productMapper.deleteById(id);
         if (result > 0) {
-            logger.info("删除商品成功: {}", id);
+            logger.info("Product deleted successfully: {}", id);
             return true;
         }
         return false;

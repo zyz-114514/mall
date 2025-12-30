@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.*;
 
 /**
- * 用户服务测试类
+ * User Service Test Class
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-context.xml"})
@@ -29,29 +29,29 @@ public class UserServiceTest {
         testUser = new User();
         testUser.setUsername("testuser" + System.currentTimeMillis());
         testUser.setPassword("test123");
-        testUser.setRealName("测试用户");
+        testUser.setRealName("Test User");
         testUser.setEmail("test@example.com");
         testUser.setPhone("13800138000");
-        testUser.setAddress("测试地址");
+        testUser.setAddress("Test Address");
     }
 
     @Test
     public void testRegister() {
         User result = userService.register(testUser);
-        assertNotNull("注册应该返回用户对象", result);
-        assertNotNull("用户ID应该被自动生成", result.getId());
-        assertEquals("用户名应该匹配", testUser.getUsername(), result.getUsername());
+        assertNotNull("Registration should return user object", result);
+        assertNotNull("User ID should be auto-generated", result.getId());
+        assertEquals("Username should match", testUser.getUsername(), result.getUsername());
     }
 
     @Test
     public void testLogin() {
-        // 先注册用户
+        // Register user first
         userService.register(testUser);
         
-        // 测试登录
+        // Test login
         User loginUser = userService.login(testUser.getUsername(), testUser.getPassword());
-        assertNotNull("登录应该成功", loginUser);
-        assertEquals("用户名应该匹配", testUser.getUsername(), loginUser.getUsername());
+        assertNotNull("Login should succeed", loginUser);
+        assertEquals("Username should match", testUser.getUsername(), loginUser.getUsername());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class UserServiceTest {
         userService.register(testUser);
         
         User loginUser = userService.login(testUser.getUsername(), "wrongpassword");
-        assertNull("错误密码登录应该失败", loginUser);
+        assertNull("Login with wrong password should fail", loginUser);
     }
 
     @Test
@@ -67,8 +67,8 @@ public class UserServiceTest {
         User registered = userService.register(testUser);
         
         User found = userService.getUserById(registered.getId());
-        assertNotNull("应该能找到用户", found);
-        assertEquals("用户ID应该匹配", registered.getId(), found.getId());
+        assertNotNull("Should be able to find user", found);
+        assertEquals("User ID should match", registered.getId(), found.getId());
     }
 
     @Test
@@ -76,22 +76,22 @@ public class UserServiceTest {
         userService.register(testUser);
         
         User found = userService.getUserByUsername(testUser.getUsername());
-        assertNotNull("应该能通过用户名找到用户", found);
-        assertEquals("用户名应该匹配", testUser.getUsername(), found.getUsername());
+        assertNotNull("Should be able to find user by username", found);
+        assertEquals("Username should match", testUser.getUsername(), found.getUsername());
     }
 
     @Test
     public void testUpdateUser() {
         User registered = userService.register(testUser);
         
-        registered.setRealName("更新后的姓名");
+        registered.setRealName("Updated Name");
         registered.setEmail("newemail@example.com");
         
         boolean updated = userService.updateUser(registered);
-        assertTrue("更新应该成功", updated);
+        assertTrue("Update should succeed", updated);
         
         User found = userService.getUserById(registered.getId());
-        assertEquals("姓名应该已更新", "更新后的姓名", found.getRealName());
-        assertEquals("邮箱应该已更新", "newemail@example.com", found.getEmail());
+        assertEquals("Name should be updated", "Updated Name", found.getRealName());
+        assertEquals("Email should be updated", "newemail@example.com", found.getEmail());
     }
 }

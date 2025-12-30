@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>订单管理 - 后台管理</title>
+    <title>Order Management - Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -14,8 +14,8 @@
 
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>订单管理</h3>
-            <a href="${pageContext.request.contextPath}/admin/index" class="btn btn-secondary">返回</a>
+            <h3>Order Management</h3>
+            <a href="${pageContext.request.contextPath}/admin/index" class="btn btn-secondary">Back</a>
         </div>
         <hr>
 
@@ -23,14 +23,14 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-light">
                     <tr>
-                        <th>订单号</th>
-                        <th>用户ID</th>
-                        <th>收货人</th>
-                        <th>联系电话</th>
-                        <th>订单金额</th>
-                        <th>状态</th>
-                        <th>下单时间</th>
-                        <th>操作</th>
+                        <th>Order Number</th>
+                        <th>User ID</th>
+                        <th>Receiver</th>
+                        <th>Phone</th>
+                        <th>Order Amount</th>
+                        <th>Status</th>
+                        <th>Order Time</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,12 +49,12 @@
                             <td><fmt:formatDate value="${order.createTime}" pattern="yyyy-MM-dd HH:mm"/></td>
                             <td>
                                 <div class="btn-group btn-group-sm">
-                                    <button class="btn btn-info" onclick="viewOrder(${order.id})">查看</button>
+                                    <button class="btn btn-info" onclick="viewOrder(${order.id})">View</button>
                                     <c:if test="${order.status == 1}">
-                                        <button class="btn btn-primary" onclick="updateStatus(${order.id}, 2)">发货</button>
+                                        <button class="btn btn-primary" onclick="updateStatus(${order.id}, 2)">Ship</button>
                                     </c:if>
                                     <c:if test="${order.status == 2}">
-                                        <button class="btn btn-success" onclick="updateStatus(${order.id}, 3)">完成</button>
+                                        <button class="btn btn-success" onclick="updateStatus(${order.id}, 3)">Complete</button>
                                     </c:if>
                                 </div>
                             </td>
@@ -65,7 +65,7 @@
         </div>
 
         <c:if test="${empty orderList}">
-            <div class="alert alert-info text-center">暂无订单</div>
+            <div class="alert alert-info text-center">No orders available</div>
         </c:if>
     </div>
 
@@ -79,14 +79,14 @@
         }
 
         function updateStatus(orderId, status) {
-            var statusText = status == 2 ? '发货' : '完成';
-            if (confirm('确定要将订单状态更新为' + statusText + '吗？')) {
+            var statusText = status == 2 ? 'ship' : 'complete';
+            if (confirm('Are you sure you want to ' + statusText + ' this order?')) {
                 $.post('${pageContext.request.contextPath}/admin/order/updateStatus', {
                     orderId: orderId,
                     status: status
                 }, function(result) {
                     if (result.code === 200) {
-                        alert('更新成功');
+                        alert('Updated successfully');
                         location.reload();
                     } else {
                         alert(result.message);

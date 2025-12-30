@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>购物车 - 在线商品销售平台</title>
+    <title>Shopping Cart - Shopping Mall</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -14,7 +14,7 @@
     <jsp:include page="../common/header.jsp"/>
 
     <div class="container mt-4">
-        <h3>我的购物车</h3>
+        <h3>My Shopping Cart</h3>
         <hr>
 
         <c:if test="${not empty cartList}">
@@ -25,11 +25,11 @@
                             <th width="50">
                                 <input type="checkbox" id="checkAll" onchange="checkAll()">
                             </th>
-                            <th>商品信息</th>
-                            <th width="150">单价</th>
-                            <th width="150">数量</th>
-                            <th width="150">小计</th>
-                            <th width="100">操作</th>
+                            <th>Product Info</th>
+                            <th width="150">Unit Price</th>
+                            <th width="150">Quantity</th>
+                            <th width="150">Subtotal</th>
+                            <th width="100">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@
                                 <td>
                                     <div>
                                         <h6>${cart.productName}</h6>
-                                        <small class="text-muted">库存：${cart.stock}</small>
+                                        <small class="text-muted">Stock: ${cart.stock}</small>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -72,7 +72,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-sm btn-danger" onclick="deleteCart(${cart.id})">
-                                        <i class="fas fa-trash"></i> 删除
+                                        <i class="fas fa-trash"></i> Delete
                                     </button>
                                 </td>
                             </tr>
@@ -84,16 +84,16 @@
             <div class="row mt-3">
                 <div class="col-md-6">
                     <button class="btn btn-outline-danger" onclick="deleteSelected()">
-                        <i class="fas fa-trash"></i> 删除选中
+                        <i class="fas fa-trash"></i> Delete Selected
                     </button>
                 </div>
                 <div class="col-md-6 text-right">
                     <h5>
-                        已选商品 <span id="selectedCount">0</span> 件，
-                        总计：<span class="text-danger" id="totalPrice">¥0.00</span>
+                        Selected <span id="selectedCount">0</span> items,
+                        Total: <span class="text-danger" id="totalPrice">¥0.00</span>
                     </h5>
                     <button class="btn btn-primary btn-lg" onclick="checkout()">
-                        结算
+                        Checkout
                     </button>
                 </div>
             </div>
@@ -101,9 +101,9 @@
 
         <c:if test="${empty cartList}">
             <div class="alert alert-info text-center">
-                <h5>购物车是空的</h5>
+                <h5>Your cart is empty</h5>
                 <a href="${pageContext.request.contextPath}/product/list" class="btn btn-primary mt-3">
-                    去购物
+                    Go Shopping
                 </a>
             </div>
         </c:if>
@@ -160,7 +160,7 @@
         }
 
         function deleteCart(cartId) {
-            if (confirm('确定要删除该商品吗？')) {
+            if (confirm('Are you sure you want to delete this item?')) {
                 $.post('${pageContext.request.contextPath}/cart/delete', {
                     cartId: cartId
                 }, function(result) {
@@ -180,11 +180,11 @@
             });
 
             if (cartIds.length === 0) {
-                alert('请选择要删除的商品');
+                alert('Please select items to delete');
                 return;
             }
 
-            if (confirm('确定要删除选中的商品吗？')) {
+            if (confirm('Are you sure you want to delete selected items?')) {
                 $.ajax({
                     url: '${pageContext.request.contextPath}/cart/deleteSelected',
                     type: 'POST',
@@ -224,7 +224,7 @@
             });
 
             if (cartIds.length === 0) {
-                alert('请选择要结算的商品');
+                alert('Please select items to checkout');
                 return;
             }
 

@@ -17,16 +17,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
     public Result<?> handleBusinessException(BusinessException e, HttpServletRequest request) {
-        logger.error("业务异常: {}, URI: {}", e.getMessage(), request.getRequestURI());
+        logger.error("Business exception: {}, URI: {}", e.getMessage(), request.getRequestURI());
         return Result.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(Exception e, HttpServletRequest request) {
-        logger.error("系统异常: {}, URI: {}", e.getMessage(), request.getRequestURI(), e);
+        logger.error("System exception: {}, URI: {}", e.getMessage(), request.getRequestURI(), e);
         
         ModelAndView mav = new ModelAndView();
-        mav.addObject("message", "系统异常，请稍后重试");
+        mav.addObject("message", "System error, please try again later");
         mav.addObject("exception", e.getMessage());
         mav.addObject("url", request.getRequestURL());
         mav.setViewName("error/500");
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
     public Result<?> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
-        logger.error("运行时异常: {}, URI: {}", e.getMessage(), request.getRequestURI(), e);
-        return Result.error("系统异常，请稍后重试");
+        logger.error("Runtime exception: {}, URI: {}", e.getMessage(), request.getRequestURI(), e);
+        return Result.error("System error, please try again later");
     }
 }

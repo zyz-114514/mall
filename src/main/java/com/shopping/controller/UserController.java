@@ -36,16 +36,16 @@ public class UserController {
                                 HttpSession session) {
         User user = userService.login(username, password);
         session.setAttribute("user", user);
-        logger.info("用户登录成功: {}", username);
-        return Result.success("登录成功", user);
+        logger.info("User logged in successfully: {}", username);
+        return Result.success("Login successful", user);
     }
 
     @PostMapping("/doRegister")
     @ResponseBody
     public Result<User> doRegister(@RequestBody User user) {
         User newUser = userService.register(user);
-        logger.info("用户注册成功: {}", user.getUsername());
-        return Result.success("注册成功", newUser);
+        logger.info("User registered successfully: {}", user.getUsername());
+        return Result.success("Registration successful", newUser);
     }
 
     @GetMapping("/doRegisterByGet")
@@ -65,8 +65,8 @@ public class UserController {
         user.setAddress(address);
         
         User newUser = userService.register(user);
-        logger.info("用户注册成功: {}", user.getUsername());
-        return Result.success("注册成功", newUser);
+        logger.info("User registered successfully: {}", user.getUsername());
+        return Result.success("Registration successful", newUser);
     }
 
     @GetMapping("/logout")
@@ -97,9 +97,9 @@ public class UserController {
         if (success) {
             User updatedUser = userService.getUserById(currentUser.getId());
             session.setAttribute("user", updatedUser);
-            return Result.success("更新成功");
+            return Result.success("Update successful");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/update")
@@ -111,8 +111,8 @@ public class UserController {
         if (success) {
             User updatedUser = userService.getUserById(currentUser.getId());
             session.setAttribute("user", updatedUser);
-            return Result.success("更新成功");
+            return Result.success("Update successful");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 }

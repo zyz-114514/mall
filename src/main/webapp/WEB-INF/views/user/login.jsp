@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户登录 - 在线商品销售平台</title>
+    <title>User Login - Shopping Mall</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <style>
         .login-container {
@@ -20,23 +20,23 @@
     <div class="login-container">
         <div class="card login-card">
             <div class="card-body">
-                <h3 class="card-title text-center mb-4">用户登录</h3>
+                <h3 class="card-title text-center mb-4">User Login</h3>
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="username">用户名</label>
+                        <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">密码</label>
+                        <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">登录</button>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </form>
                 <div class="text-center mt-3">
-                    <a href="${pageContext.request.contextPath}/user/register">还没有账号？立即注册</a>
+                    <a href="${pageContext.request.contextPath}/user/register">Don't have an account? Register now</a>
                 </div>
                 <div class="text-center mt-2">
-                    <a href="${pageContext.request.contextPath}/">返回首页</a>
+                    <a href="${pageContext.request.contextPath}/">Back to Home</a>
                 </div>
             </div>
         </div>
@@ -56,14 +56,14 @@
                 },
                 success: function(result) {
                     if (result.code === 200) {
-                        alert('登录成功');
+                        alert('Login successful');
                         window.location.href = '${pageContext.request.contextPath}/';
                     } else {
                         alert(result.message);
                     }
                 },
                 error: function() {
-                    alert('登录失败，请稍后重试');
+                    alert('Login failed, please try again later');
                 }
             });
         });

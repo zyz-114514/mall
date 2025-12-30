@@ -50,7 +50,7 @@ public class OrderController {
                                        HttpSession session) {
         User user = (User) session.getAttribute("user");
         OrderVO order = orderService.createOrder(user.getId(), orderDTO);
-        return Result.success("订单创建成功", order);
+        return Result.success("Order created successfully", order);
     }
 
     @PostMapping("/cancel/{id}")
@@ -58,9 +58,9 @@ public class OrderController {
     public Result<?> cancelOrder(@PathVariable Long id) {
         boolean success = orderService.cancelOrder(id);
         if (success) {
-            return Result.success("订单已取消");
+            return Result.success("Order cancelled");
         }
-        return Result.error("取消订单失败");
+        return Result.error("Failed to cancel order");
     }
 
     @PostMapping("/updateStatus")
@@ -69,8 +69,8 @@ public class OrderController {
                                        @RequestParam Integer status) {
         boolean success = orderService.updateOrderStatus(orderId, status);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 }

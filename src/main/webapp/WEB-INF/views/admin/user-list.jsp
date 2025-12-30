@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户管理 - 后台管理</title>
+    <title>User Management - Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -41,26 +41,26 @@
             <div class="col-md-2 admin-sidebar">
                 <nav class="nav flex-column">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/index">
-                        <i class="fas fa-tachometer-alt"></i> 控制台
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                     <a class="nav-link active" href="${pageContext.request.contextPath}/admin/user/list">
-                        <i class="fas fa-users"></i> 用户管理
+                        <i class="fas fa-users"></i> User Management
                     </a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/product/list">
-                        <i class="fas fa-box"></i> 商品管理
+                        <i class="fas fa-box"></i> Product Management
                     </a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/order/list">
-                        <i class="fas fa-shopping-cart"></i> 订单管理
+                        <i class="fas fa-shopping-cart"></i> Order Management
                     </a>
                 </nav>
             </div>
             
             <div class="col-md-10 admin-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3><i class="fas fa-users"></i> 用户管理</h3>
+                    <h3><i class="fas fa-users"></i> User Management</h3>
                     <div>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
-                            <i class="fas fa-plus"></i> 添加用户
+                            <i class="fas fa-plus"></i> Add User
                         </button>
                     </div>
                 </div>
@@ -72,14 +72,14 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>ID</th>
-                                        <th>用户名</th>
-                                        <th>真实姓名</th>
-                                        <th>邮箱</th>
-                                        <th>手机号</th>
-                                        <th>角色</th>
-                                        <th>状态</th>
-                                        <th>注册时间</th>
-                                        <th>操作</th>
+                                        <th>Username</th>
+                                        <th>Real Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Registration Time</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,12 +92,12 @@
                                             <td>${user.phone}</td>
                                             <td>
                                                 <span class="badge badge-${user.role == 'ADMIN' ? 'danger' : 'primary'} status-badge">
-                                                    ${user.role == 'ADMIN' ? '管理员' : '普通用户'}
+                                                    ${user.role == 'ADMIN' ? 'Admin' : 'User'}
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="badge badge-${user.status == 1 ? 'success' : 'secondary'} status-badge">
-                                                    ${user.status == 1 ? '正常' : '禁用'}
+                                                    ${user.status == 1 ? 'Active' : 'Disabled'}
                                                 </span>
                                             </td>
                                             <td><fmt:formatDate value="${user.createTime}" pattern="yyyy-MM-dd"/></td>
@@ -127,7 +127,7 @@
                         </div>
 
                         <c:if test="${empty userList}">
-                            <div class="alert alert-info text-center">暂无用户数据</div>
+                            <div class="alert alert-info text-center">No user data available</div>
                         </c:if>
                     </div>
                 </div>
@@ -135,12 +135,12 @@
         </div>
     </div>
 
-    <!-- 添加用户模态框 -->
+    <!-- Add User Modal -->
     <div class="modal fade" id="addUserModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">添加用户</h5>
+                    <h5 class="modal-title">Add User</h5>
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
@@ -148,48 +148,48 @@
                 <div class="modal-body">
                     <form id="addUserForm">
                         <div class="form-group">
-                            <label>用户名 *</label>
+                            <label>Username *</label>
                             <input type="text" class="form-control" id="add_username" required>
                         </div>
                         <div class="form-group">
-                            <label>密码 *</label>
+                            <label>Password *</label>
                             <input type="password" class="form-control" id="add_password" required>
                         </div>
                         <div class="form-group">
-                            <label>真实姓名</label>
+                            <label>Real Name</label>
                             <input type="text" class="form-control" id="add_realName">
                         </div>
                         <div class="form-group">
-                            <label>邮箱</label>
+                            <label>Email</label>
                             <input type="email" class="form-control" id="add_email">
                         </div>
                         <div class="form-group">
-                            <label>手机号</label>
+                            <label>Phone</label>
                             <input type="text" class="form-control" id="add_phone">
                         </div>
                         <div class="form-group">
-                            <label>角色</label>
+                            <label>Role</label>
                             <select class="form-control" id="add_role">
-                                <option value="USER">普通用户</option>
-                                <option value="ADMIN">管理员</option>
+                                <option value="USER">User</option>
+                                <option value="ADMIN">Admin</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" onclick="addUser()">添加</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addUser()">Add</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 编辑用户模态框 -->
+    <!-- Edit User Modal -->
     <div class="modal fade" id="editUserModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">编辑用户</h5>
+                    <h5 class="modal-title">Edit User</h5>
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
@@ -198,37 +198,37 @@
                     <form id="editUserForm">
                         <input type="hidden" id="edit_id">
                         <div class="form-group">
-                            <label>用户名</label>
+                            <label>Username</label>
                             <input type="text" class="form-control" id="edit_username" readonly>
                         </div>
                         <div class="form-group">
-                            <label>真实姓名</label>
+                            <label>Real Name</label>
                             <input type="text" class="form-control" id="edit_realName">
                         </div>
                         <div class="form-group">
-                            <label>邮箱</label>
+                            <label>Email</label>
                             <input type="email" class="form-control" id="edit_email">
                         </div>
                         <div class="form-group">
-                            <label>手机号</label>
+                            <label>Phone</label>
                             <input type="text" class="form-control" id="edit_phone">
                         </div>
                         <div class="form-group">
-                            <label>收货地址</label>
+                            <label>Shipping Address</label>
                             <textarea class="form-control" id="edit_address" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>角色</label>
+                            <label>Role</label>
                             <select class="form-control" id="edit_role">
-                                <option value="USER">普通用户</option>
-                                <option value="ADMIN">管理员</option>
+                                <option value="USER">User</option>
+                                <option value="ADMIN">Admin</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" onclick="updateUser()">保存</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="updateUser()">Save</button>
                 </div>
             </div>
         </div>
@@ -254,7 +254,7 @@
                 data: JSON.stringify(data),
                 success: function(result) {
                     if (result.code === 200) {
-                        alert('添加成功');
+                        alert('Added successfully');
                         $('#addUserModal').modal('hide');
                         location.reload();
                     } else {
@@ -297,7 +297,7 @@
                 data: JSON.stringify(data),
                 success: function(result) {
                     if (result.code === 200) {
-                        alert('更新成功');
+                        alert('Updated successfully');
                         $('#editUserModal').modal('hide');
                         location.reload();
                     } else {
@@ -308,14 +308,14 @@
         }
 
         function updateUserStatus(userId, status) {
-            var statusText = status == 1 ? '启用' : '禁用';
-            if (confirm('确定要' + statusText + '该用户吗？')) {
+            var statusText = status == 1 ? 'enable' : 'disable';
+            if (confirm('Are you sure you want to ' + statusText + ' this user?')) {
                 $.post('${pageContext.request.contextPath}/admin/user/updateStatus', {
                     userId: userId,
                     status: status
                 }, function(result) {
                     if (result.code === 200) {
-                        alert('更新成功');
+                        alert('Updated successfully');
                         location.reload();
                     } else {
                         alert(result.message);

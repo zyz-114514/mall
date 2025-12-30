@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品列表 - 在线商品销售平台</title>
+    <title>Product List - Shopping Mall</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -36,11 +36,11 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="sidebar">
-                    <h5>商品分类</h5>
+                    <h5>Product Categories</h5>
                     <div class="list-group">
                         <a href="${pageContext.request.contextPath}/product/list" 
                            class="list-group-item list-group-item-action ${empty currentCategoryId ? 'active' : ''}">
-                            全部商品
+                            All Products
                         </a>
                         <c:forEach items="${categories}" var="category">
                             <a href="${pageContext.request.contextPath}/product/list?categoryId=${category.id}" 
@@ -55,7 +55,7 @@
             <div class="col-md-9">
                 <c:if test="${not empty keyword}">
                     <div class="alert alert-info">
-                        搜索关键词：<strong>${keyword}</strong>，共找到 ${productList.size()} 件商品
+                        Search keyword: <strong>${keyword}</strong>, found ${productList.size()} products
                     </div>
                 </c:if>
 
@@ -68,11 +68,11 @@
                                     <p class="card-text text-muted">${product.subtitle}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span class="text-danger font-weight-bold">¥<fmt:formatNumber value="${product.price}" pattern="#,##0.00"/></span>
-                                        <span class="text-muted">库存: ${product.stock}</span>
+                                        <span class="text-muted">Stock: ${product.stock}</span>
                                     </div>
                                     <div class="mt-3">
-                                        <a href="${pageContext.request.contextPath}/product/detail/${product.id}" class="btn btn-sm btn-outline-primary">查看详情</a>
-                                        <button class="btn btn-sm btn-primary" onclick="addToCart(${product.id})">加入购物车</button>
+                                        <a href="${pageContext.request.contextPath}/product/detail/${product.id}" class="btn btn-sm btn-outline-primary">View Details</a>
+                                        <button class="btn btn-sm btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
 
                 <c:if test="${empty productList}">
                     <div class="alert alert-warning text-center">
-                        暂无商品
+                        No products available
                     </div>
                 </c:if>
             </div>
@@ -97,7 +97,7 @@
         function addToCart(productId) {
             <c:choose>
                 <c:when test="${empty sessionScope.user}">
-                    alert('请先登录');
+                    alert('Please login first');
                     window.location.href = '${pageContext.request.contextPath}/user/login';
                 </c:when>
                 <c:otherwise>
@@ -106,7 +106,7 @@
                         quantity: 1
                     }, function(result) {
                         if (result.code === 200) {
-                            alert('添加成功');
+                            alert('Added successfully');
                         } else {
                             alert(result.message);
                         }

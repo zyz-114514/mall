@@ -16,21 +16,21 @@ public class OrderUtil {
 
     public static String getStatusDesc(Integer status) {
         if (status == null) {
-            return "未知";
+            return "Unknown";
         }
         switch (status) {
             case 0:
-                return "待支付";
+                return "Pending Payment";
             case 1:
-                return "已支付";
+                return "Paid";
             case 2:
-                return "已发货";
+                return "Shipped";
             case 3:
-                return "已完成";
+                return "Completed";
             case 4:
-                return "已取消";
+                return "Cancelled";
             default:
-                return "未知";
+                return "Unknown";
         }
     }
 }

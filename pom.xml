@@ -11,7 +11,7 @@
     <packaging>war</packaging>
 
     <name>shopping-mall</name>
-    <description>在线商品销售平台（SSM框架）</description>
+    <description>Online Shopping Mall (SSM Framework)</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +23,7 @@
     </properties>
 
     <dependencies>
-        <!-- Spring核心依赖 -->
+        <!-- Spring Core Dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -62,7 +62,7 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- Spring JDBC和事务管理 -->
+        <!-- Spring JDBC and Transaction Management -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -86,14 +86,14 @@
             <version>${mybatis-spring.version}</version>
         </dependency>
 
-        <!-- 数据库驱动 -->
+        <!-- Database Driver -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version>
         </dependency>
 
-        <!-- 数据库连接池 -->
+        <!-- Database Connection Pool -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -121,14 +121,14 @@
             <version>1.2</version>
         </dependency>
 
-        <!-- Jackson JSON处理 -->
+        <!-- Jackson JSON Processing -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.13.3</version>
         </dependency>
 
-        <!-- 日志 -->
+        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -140,7 +140,7 @@
             <version>1.2.11</version>
         </dependency>
 
-        <!-- Lombok（可选，简化代码） -->
+        <!-- Lombok (Optional, simplify code) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -148,7 +148,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 文件上传 -->
+        <!-- File Upload -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -167,7 +167,7 @@
             <version>3.12.0</version>
         </dependency>
 
-        <!-- 测试依赖 -->
+        <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

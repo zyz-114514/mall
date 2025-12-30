@@ -20,11 +20,11 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> success() {
-        return new Result<>(200, "操作成功", null);
+        return new Result<>(200, "Success", null);
     }
 
     public static <T> Result<T> success(T data) {
-        return new Result<>(200, "操作成功", data);
+        return new Result<>(200, "Success", data);
     }
 
     public static <T> Result<T> success(String message, T data) {

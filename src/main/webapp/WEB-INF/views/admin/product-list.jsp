@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品管理 - 后台管理</title>
+    <title>Product Management - Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -41,26 +41,26 @@
             <div class="col-md-2 admin-sidebar">
                 <nav class="nav flex-column">
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/index">
-                        <i class="fas fa-tachometer-alt"></i> 控制台
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/user/list">
-                        <i class="fas fa-users"></i> 用户管理
+                        <i class="fas fa-users"></i> User Management
                     </a>
                     <a class="nav-link active" href="${pageContext.request.contextPath}/admin/product/list">
-                        <i class="fas fa-box"></i> 商品管理
+                        <i class="fas fa-box"></i> Product Management
                     </a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/order/list">
-                        <i class="fas fa-shopping-cart"></i> 订单管理
+                        <i class="fas fa-shopping-cart"></i> Order Management
                     </a>
                 </nav>
             </div>
             
             <div class="col-md-10 admin-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3><i class="fas fa-box"></i> 商品管理</h3>
+                    <h3><i class="fas fa-box"></i> Product Management</h3>
                     <div>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
-                            <i class="fas fa-plus"></i> 添加商品
+                            <i class="fas fa-plus"></i> Add Product
                         </button>
                     </div>
                 </div>
@@ -73,14 +73,14 @@
                 <thead class="thead-light">
                     <tr>
                         <th>ID</th>
-                        <th>商品名称</th>
-                        <th>副标题</th>
-                        <th>价格</th>
-                        <th>库存</th>
-                        <th>分类ID</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
+                        <th>Product Name</th>
+                        <th>Subtitle</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Category ID</th>
+                        <th>Status</th>
+                        <th>Created Time</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,19 +94,19 @@
                             <td>${product.categoryId}</td>
                             <td>
                                 <span class="badge badge-${product.status == 1 ? 'success' : 'secondary'}">
-                                    ${product.status == 1 ? '上架' : '下架'}
+                                    ${product.status == 1 ? 'Online' : 'Offline'}
                                 </span>
                             </td>
                             <td><fmt:formatDate value="${product.createTime}" pattern="yyyy-MM-dd HH:mm"/></td>
                             <td>
                                 <div class="btn-group btn-group-sm">
                                     <a href="${pageContext.request.contextPath}/product/detail/${product.id}" 
-                                       class="btn btn-info" target="_blank">查看</a>
+                                       class="btn btn-info" target="_blank">View</a>
                                     <c:if test="${product.status == 1}">
-                                        <button class="btn btn-warning" onclick="updateStatus(${product.id}, 0)">下架</button>
+                                        <button class="btn btn-warning" onclick="updateStatus(${product.id}, 0)">Offline</button>
                                     </c:if>
                                     <c:if test="${product.status == 0}">
-                                        <button class="btn btn-success" onclick="updateStatus(${product.id}, 1)">上架</button>
+                                        <button class="btn btn-success" onclick="updateStatus(${product.id}, 1)">Online</button>
                                     </c:if>
                                 </div>
                             </td>
@@ -117,7 +117,7 @@
         </div>
 
         <c:if test="${empty productList}">
-            <div class="alert alert-info text-center">暂无商品</div>
+            <div class="alert alert-info text-center">No products available</div>
         </c:if>
     </div>
 
@@ -127,14 +127,14 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script>
         function updateStatus(productId, status) {
-            var statusText = status == 1 ? '上架' : '下架';
-            if (confirm('确定要' + statusText + '该商品吗？')) {
+            var statusText = status == 1 ? 'online' : 'offline';
+            if (confirm('Are you sure you want to set this product ' + statusText + '?')) {
                 $.post('${pageContext.request.contextPath}/admin/product/updateStatus', {
                     productId: productId,
                     status: status
                 }, function(result) {
                     if (result.code === 200) {
-                        alert('更新成功');
+                        alert('Updated successfully');
                         location.reload();
                     } else {
                         alert(result.message);

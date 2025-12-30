@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${product.name} - 商品详情</title>
+    <title>${product.name} - Product Detail</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -23,8 +23,8 @@
     <div class="container mt-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">首页</a></li>
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/product/list">商品列表</a></li>
+                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">Home</a></li>
+                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/product/list">Products</a></li>
                 <li class="breadcrumb-item active">${product.name}</li>
             </ol>
         </nav>
@@ -37,13 +37,13 @@
                 <h3 class="text-danger">¥<fmt:formatNumber value="${product.price}" pattern="#,##0.00"/></h3>
                 <p class="mt-3">
                     <span class="badge badge-${product.stock > 0 ? 'success' : 'danger'}">
-                        ${product.stock > 0 ? '有货' : '缺货'}
+                        ${product.stock > 0 ? 'In Stock' : 'Out of Stock'}
                     </span>
-                    <span class="ml-2">库存：${product.stock} 件</span>
+                    <span class="ml-2">Stock: ${product.stock} units</span>
                 </p>
 
                 <div class="form-group mt-4">
-                    <label>购买数量：</label>
+                    <label>Quantity:</label>
                     <div class="input-group" style="width: 150px;">
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity()">-</button>
@@ -57,10 +57,10 @@
 
                 <div class="mt-4">
                     <button class="btn btn-primary btn-lg mr-2" onclick="addToCart()">
-                        <i class="fas fa-cart-plus"></i> 加入购物车
+                        <i class="fas fa-cart-plus"></i> Add to Cart
                     </button>
                     <a href="${pageContext.request.contextPath}/product/list" class="btn btn-outline-secondary btn-lg">
-                        继续购物
+                        Continue Shopping
                     </a>
                 </div>
             </div>
@@ -68,7 +68,7 @@
 
         <div class="row mt-5">
             <div class="col-md-12">
-                <h4>商品详情</h4>
+                <h4>Product Details</h4>
                 <hr>
                 <div class="card">
                     <div class="card-body">
@@ -102,7 +102,7 @@
         function addToCart() {
             <c:choose>
                 <c:when test="${empty sessionScope.user}">
-                    alert('请先登录');
+                    alert('Please login first');
                     window.location.href = '${pageContext.request.contextPath}/user/login';
                 </c:when>
                 <c:otherwise>
@@ -112,7 +112,7 @@
                         quantity: quantity
                     }, function(result) {
                         if (result.code === 200) {
-                            if (confirm('添加成功！是否前往购物车？')) {
+                            if (confirm('Added successfully! Go to cart?')) {
                                 window.location.href = '${pageContext.request.contextPath}/cart/list';
                             }
                         } else {

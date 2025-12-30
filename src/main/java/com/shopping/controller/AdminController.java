@@ -54,9 +54,9 @@ public class AdminController {
     public Result<?> addProduct(@RequestBody Product product) {
         boolean success = productService.addProduct(product);
         if (success) {
-            return Result.success("添加成功");
+            return Result.success("Added successfully");
         }
-        return Result.error("添加失败");
+        return Result.error("Failed to add");
     }
 
     @GetMapping("/product/edit/{id}")
@@ -72,9 +72,9 @@ public class AdminController {
     public Result<?> updateProduct(@RequestBody Product product) {
         boolean success = productService.updateProduct(product);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/product/updateStatus")
@@ -83,14 +83,14 @@ public class AdminController {
                                          @RequestParam Integer status) {
         Product product = productService.getProductById(productId);
         if (product == null) {
-            return Result.error("商品不存在");
+            return Result.error("Product does not exist");
         }
         product.setStatus(status);
         boolean success = productService.updateProduct(product);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/product/delete/{id}")
@@ -98,9 +98,9 @@ public class AdminController {
     public Result<?> deleteProduct(@PathVariable Long id) {
         boolean success = productService.deleteProduct(id);
         if (success) {
-            return Result.success("删除成功");
+            return Result.success("Deleted successfully");
         }
-        return Result.error("删除失败");
+        return Result.error("Delete failed");
     }
 
     @GetMapping("/order/list")
@@ -116,12 +116,12 @@ public class AdminController {
                                        @RequestParam Integer status) {
         boolean success = orderService.updateOrderStatus(orderId, status);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
-    // 用户管理相关接口
+    // User management related interfaces
     @GetMapping("/user/list")
     public String userList(Model model) {
         List<User> userList = userService.getAllUsers();
@@ -134,7 +134,7 @@ public class AdminController {
     public Result<?> addUser(@RequestBody User user) {
         try {
             User newUser = userService.register(user);
-            return Result.success("添加成功", newUser);
+            return Result.success("Added successfully", newUser);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
@@ -147,7 +147,7 @@ public class AdminController {
         if (user != null) {
             return Result.success(user);
         }
-        return Result.error("用户不存在");
+        return Result.error("User does not exist");
     }
 
     @PostMapping("/user/update")
@@ -155,9 +155,9 @@ public class AdminController {
     public Result<?> updateUser(@RequestBody User user) {
         boolean success = userService.updateUser(user);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/user/updateStatus")
@@ -166,13 +166,13 @@ public class AdminController {
                                       @RequestParam Integer status) {
         User user = userService.getUserById(userId);
         if (user == null) {
-            return Result.error("用户不存在");
+            return Result.error("User does not exist");
         }
         user.setStatus(status);
         boolean success = userService.updateUser(user);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 }

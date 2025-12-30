@@ -34,9 +34,9 @@ public class CartController {
         User user = (User) session.getAttribute("user");
         boolean success = cartService.addToCart(user.getId(), productId, quantity);
         if (success) {
-            return Result.success("添加成功");
+            return Result.success("Added successfully");
         }
-        return Result.error("添加失败");
+        return Result.error("Failed to add");
     }
 
     @PostMapping("/updateQuantity")
@@ -45,9 +45,9 @@ public class CartController {
                                     @RequestParam Integer quantity) {
         boolean success = cartService.updateQuantity(cartId, quantity);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/updateChecked")
@@ -56,9 +56,9 @@ public class CartController {
                                    @RequestParam Integer checked) {
         boolean success = cartService.updateChecked(cartId, checked);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/updateAllChecked")
@@ -68,9 +68,9 @@ public class CartController {
         User user = (User) session.getAttribute("user");
         boolean success = cartService.updateAllChecked(user.getId(), checked);
         if (success) {
-            return Result.success("更新成功");
+            return Result.success("Updated successfully");
         }
-        return Result.error("更新失败");
+        return Result.error("Update failed");
     }
 
     @PostMapping("/delete")
@@ -78,9 +78,9 @@ public class CartController {
     public Result<?> deleteCart(@RequestParam Long cartId) {
         boolean success = cartService.deleteCart(cartId);
         if (success) {
-            return Result.success("删除成功");
+            return Result.success("Deleted successfully");
         }
-        return Result.error("删除失败");
+        return Result.error("Delete failed");
     }
 
     @PostMapping("/deleteSelected")
@@ -88,8 +88,8 @@ public class CartController {
     public Result<?> deleteSelected(@RequestBody List<Long> cartIds) {
         boolean success = cartService.deleteCartItems(cartIds);
         if (success) {
-            return Result.success("删除成功");
+            return Result.success("Deleted successfully");
         }
-        return Result.error("删除失败");
+        return Result.error("Delete failed");
     }
 }

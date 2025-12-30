@@ -1,218 +1,250 @@
-# 在线商品销售平台 (Shopping Mall)
+# Online Shopping Mall
 
 [![Java](https://img.shields.io/badge/Java-1.8+-orange.svg)](https://www.oracle.com/java/)
 [![Spring](https://img.shields.io/badge/Spring-5.3.20-green.svg)](https://spring.io/)
 [![MyBatis](https://img.shields.io/badge/MyBatis-3.5.10-red.svg)](https://mybatis.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-基于SSM（Spring + SpringMVC + MyBatis）框架开发的在线商品销售平台，采用敏捷开发模式，快速迭代交付。
+An online shopping mall platform developed based on SSM (Spring + SpringMVC + MyBatis) framework, using agile development methodology for rapid iterative delivery.
 
-## 项目特点
+## Project Features
 
-- **敏捷开发**：采用迭代式开发，快速响应需求变化
-- **完整功能**：用户、商品、购物车、订单全流程
-- **测试驱动**：27个单元测试用例，保证代码质量
-- **规范代码**：遵循Java编码规范，代码可读性强
-- **前后分离**：清晰的MVC架构，易于维护扩展
+- **Agile Development**: Iterative development approach, quick response to requirement changes
+- **Complete Functions**: Full process including user, product, shopping cart, and order management
+- **Test-Driven**: 27 unit test cases ensuring code quality
+- **Standard Code**: Following Java coding standards with high code readability
+- **Frontend-Backend Separation**: Clear MVC architecture, easy to maintain and extend
 
-## 功能模块
+## Function Modules
 
-### 用户端功能
-- 用户注册/登录
-- 商品浏览/搜索
-- 购物车管理
-- 订单创建/查询
-- 个人信息管理
+### User Functions
+- 👤 User registration/login
+- 🛍️ Product browsing/searching
+- 🛒 Shopping cart management
+- 📦 Order creation/inquiry
+- 👨‍💼 Personal information management
 
-### 管理端功能
-- 商品管理（增删改查）
-- 分类管理
-- 订单管理
-- 用户管理
+### Admin Functions
+- 📊 Product management (CRUD)
+- 📁 Category management
+- 📋 Order management
+- 👥 User management
 
-## 技术栈
+## Technology Stack
 
-### 后端技术
-- **核心框架**：Spring 5.3.20 + SpringMVC + MyBatis 3.5.10
-- **数据库**：MySQL 8.0
-- **连接池**：Druid 1.2.8
-- **日志**：SLF4J + Logback
-- **构建工具**：Maven 3.x
+### Backend Technologies
+- **Core Framework**: Spring 5.3.20 + SpringMVC + MyBatis 3.5.10
+- **Database**: MySQL 8.0
+- **Connection Pool**: Druid 1.2.8
+- **Logging**: SLF4J + Logback
+- **Build Tool**: Maven 3.x
 
-### 前端技术
+### Frontend Technologies
 - JSP + JSTL
 - JavaScript
 - Bootstrap
 
-### 测试框架
+### Testing Framework
 - JUnit 4.13.2
 - Spring Test
 
-## 快速开始
+## Quick Start
 
-### 1. 环境要求
+### 1. Environment Requirements
 
 - JDK 1.8+
 - Maven 3.6+
 - MySQL 8.0+
 - Tomcat 9.0+
 
-### 2. 数据库初始化
+### 2. Database Initialization
 
 ```bash
-# 创建数据库并导入数据
+# Create database and import data
 mysql -u root -p < database/schema.sql
 ```
 
-### 3. 配置数据库
+### 3. Configure Database
 
-编辑 `src/main/resources/jdbc.properties`：
+Edit `src/main/resources/jdbc.properties`:
 
 ```properties
 jdbc.url=jdbc:mysql://localhost:3306/shopping_mall
 jdbc.username=root
-jdbc.password=你的密码
+jdbc.password=your_password
 ```
 
-### 4. 编译运行
+### 4. Build and Run
 
 ```bash
-# 编译项目
+# Build project
 mvn clean package
 
-# 部署到Tomcat
-# 将target/shopping-mall.war复制到Tomcat的webapps目录
+# Deploy to Tomcat
+# Copy target/shopping-mall.war to Tomcat's webapps directory
 ```
 
-### 5. 访问系统
+### 5. Access System
 
-- 用户端：http://localhost:8080/shopping-mall/
-- 管理端：http://localhost:8080/shopping-mall/admin/
+- User Portal: http://localhost:8080/shopping-mall/
+- Admin Panel: http://localhost:8080/shopping-mall/admin/
 
-**测试账号**：
-- 普通用户：user1 / user123
-- 管理员：admin / admin123
+**Test Accounts**:
+- Regular User: user1 / user123
+- Administrator: admin / admin123
 
-## 运行测试
+## Run Tests
 
 ```bash
-# 运行所有测试
+# Run all tests
 mvn test
 
-# 运行单个测试类
+# Run single test class
 mvn test -Dtest=UserServiceTest
 ```
 
-**测试覆盖**：
-- 用户模块：6个测试用例
-- 商品模块：8个测试用例
-- 购物车模块：6个测试用例
-- 订单模块：7个测试用例
+**Test Coverage**:
+- ✅ User Module: 6 test cases
+- ✅ Product Module: 8 test cases
+- ✅ Shopping Cart Module: 6 test cases
+- ✅ Order Module: 7 test cases
 
-## 项目结构
+## Project Structure
 
 ```
 shopping-mall/
-├── database/                    # 数据库脚本
-│   └── schema.sql              # 数据库初始化脚本
+├── database/                    # Database scripts
+│   └── schema.sql              # Database initialization script
 ├── src/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/shopping/
-│   │   │       ├── controller/  # 控制器层
-│   │   │       ├── service/     # 业务逻辑层
-│   │   │       ├── mapper/      # 数据访问层
-│   │   │       ├── entity/      # 实体类
-│   │   │       ├── vo/          # 视图对象
-│   │   │       ├── dto/         # 数据传输对象
-│   │   │       ├── util/        # 工具类
-│   │   │       ├── exception/   # 异常处理
-│   │   │       └── interceptor/ # 拦截器
+│   │   │       ├── controller/  # Controller layer
+│   │   │       ├── service/     # Business logic layer
+│   │   │       ├── mapper/      # Data access layer
+│   │   │       ├── entity/      # Entity classes
+│   │   │       ├── vo/          # View objects
+│   │   │       ├── dto/         # Data transfer objects
+│   │   │       ├── util/        # Utility classes
+│   │   │       ├── exception/   # Exception handling
+│   │   │       └── interceptor/ # Interceptors
 │   │   ├── resources/
-│   │   │   ├── spring/          # Spring配置
-│   │   │   ├── mapper/          # MyBatis映射文件
-│   │   │   └── jdbc.properties  # 数据库配置
+│   │   │   ├── spring/          # Spring configuration
+│   │   │   ├── mapper/          # MyBatis mapping files
+│   │   │   └── jdbc.properties  # Database configuration
 │   │   └── webapp/
-│   │       ├── WEB-INF/views/   # JSP页面
-│   │       └── static/          # 静态资源
+│   │       ├── WEB-INF/views/   # JSP pages
+│   │       └── static/          # Static resources
 │   └── test/
-│       └── java/                # 单元测试
-├── pom.xml                      # Maven配置
-└── README.md                    # 项目说明
+│       └── java/                # Unit tests
+├── pom.xml                      # Maven configuration
+└── README.md                    # Project documentation
 ```
 
-## 敏捷开发迭代
+## Agile Development Iterations
 
-### Sprint 1 - 基础架构 
--  搭建SSM框架
--  配置数据库连接
--  设计数据库表结构
--  实现基础CRUD
+### Sprint 1 - Basic Architecture ✅
+- [x] Build SSM framework
+- [x] Configure database connection
+- [x] Design database table structure
+- [x] Implement basic CRUD
 
-### Sprint 2 - 核心功能 
--  用户注册登录
--  商品展示和搜索
--  购物车功能
--  订单创建
+### Sprint 2 - Core Functions ✅
+- [x] User registration and login
+- [x] Product display and search
+- [x] Shopping cart functionality
+- [x] Order creation
 
-### Sprint 3 - 管理功能 
--  管理员后台
--  商品管理
--  订单管理
--  用户管理
+### Sprint 3 - Admin Functions ✅
+- [x] Admin backend
+- [x] Product management
+- [x] Order management
+- [x] User management
 
-### Sprint 4 - 测试优化 
--  编写单元测试
--  代码重构优化
--  异常处理完善
--  文档编写
+### Sprint 4 - Testing and Optimization ✅
+- [x] Write unit tests
+- [x] Code refactoring and optimization
+- [x] Exception handling improvement
+- [x] Documentation writing
 
-## 数据库设计
+## Database Design
 
-### 核心表结构
+### Core Tables
 
-- **user** - 用户表
-- **product** - 商品表
-- **category** - 分类表
-- **cart** - 购物车表
-- **order_info** - 订单表
-- **order_item** - 订单明细表
+- **user** - User table
+- **product** - Product table
+- **category** - Category table
+- **cart** - Shopping cart table
+- **order_info** - Order table
+- **order_item** - Order item table
 
-详细设计见 `database/schema.sql`
+See `database/schema.sql` for detailed design
 
-## API接口
+## Development Standards
 
-### 用户接口
-- `POST /user/register` - 用户注册
-- `POST /user/login` - 用户登录
-- `GET /user/logout` - 用户登出
-- `GET /user/info` - 获取用户信息
+### Code Standards
+- Follow Alibaba Java Development Manual
+- Use Lombok to simplify code
+- Unified exception handling
+- Complete code documentation
 
-### 商品接口
-- `GET /product/list` - 商品列表
-- `GET /product/{id}` - 商品详情
-- `GET /product/search` - 搜索商品
+### Git Commit Standards
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation update
+- `refactor`: Code refactoring
+- `test`: Test related
+- `chore`: Build/tool changes
 
-### 购物车接口
-- `POST /cart/add` - 添加到购物车
-- `GET /cart/list` - 购物车列表
-- `POST /cart/update` - 更新购物车
-- `DELETE /cart/delete/{id}` - 删除购物车项
+## API Endpoints
 
-### 订单接口
-- `POST /order/create` - 创建订单
-- `GET /order/list` - 订单列表
-- `GET /order/{id}` - 订单详情
+### User APIs
+- `POST /user/register` - User registration
+- `POST /user/login` - User login
+- `GET /user/logout` - User logout
+- `GET /user/info` - Get user information
 
-##  作者
+### Product APIs
+- `GET /product/list` - Product list
+- `GET /product/{id}` - Product details
+- `GET /product/search` - Search products
 
-- **赵宇哲** -
-- **王嘉艺** -
-- **徐宏成** -
-- **孙永超** -
+### Shopping Cart APIs
+- `POST /cart/add` - Add to cart
+- `GET /cart/list` - Cart list
+- `POST /cart/update` - Update cart
+- `DELETE /cart/delete/{id}` - Delete cart item
 
-##  小组分工
-- 赵宇哲：管理功能
-- 王嘉艺：核心功能
-- 徐宏成：测试优化
-- 孙永超：基础架构
+### Order APIs
+- `POST /order/create` - Create order
+- `GET /order/list` - Order list
+- `GET /order/{id}` - Order details
+
+## Contributing
+
+Issues and Pull Requests are welcome!
+
+1. Fork this repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'feat: Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Submit Pull Request
+
+## License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details
+
+## Author
+
+- **zyz-114514** - [GitHub](https://github.com/zyz-114514)
+
+## Acknowledgments
+
+- Spring Framework
+- MyBatis
+- Bootstrap
+- All open source contributors
+
+---
+
+⭐ If this project helps you, please give it a Star!

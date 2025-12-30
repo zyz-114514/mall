@@ -43,27 +43,27 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     public OrderVO createOrder(Long userId, OrderDTO orderDTO) {
         if (userId == null || orderDTO == null) {
-            throw new BusinessException("参数不能为空");
+            throw new BusinessException("Parameters cannot be empty");
         }
 
         if (orderDTO.getReceiverName() == null || orderDTO.getReceiverPhone() == null 
                 || orderDTO.getReceiverAddress() == null) {
-            throw new BusinessException("收货信息不完整");
+            throw new BusinessException("Shipping information is incomplete");
         }
 
         List<Long> cartIds = orderDTO.getCartIds();
         if (cartIds == null || cartIds.isEmpty()) {
-            throw new BusinessException("请选择要购买的商品");
+            throw new BusinessException("Please select products to purchase");
         }
 
         List<CartVO> cartList = cartMapper.selectByIds(cartIds);
         if (cartList == null || cartList.isEmpty()) {
-            throw new BusinessException("购物车商品不存在");
+            throw new BusinessException("Cart products do not exist");
         }
 
         for (CartVO cart : cartList) {
             if (cart.getStock() < cart.getQuantity()) {
-                throw new BusinessException("商品【" + cart.getProductName() + "】库存不足");
+                throw new BusinessException("Product [" + cart.getProductName() + "] is out of stock");
             }
         }
 
@@ -94,14 +94,14 @@ public class OrderServiceImpl implements OrderService {
 
             int updateResult = productMapper.updateStock(cart.getProductId(), cart.getQuantity());
             if (updateResult <= 0) {
-                throw new BusinessException("商品【" + cart.getProductName() + "】库存不足");
+                throw new BusinessException("Product [" + cart.getProductName() + "] is out of stock");
             }
         }
 
         orderInfo.setTotalPrice(totalPrice);
         int orderResult = orderMapper.insert(orderInfo);
         if (orderResult <= 0) {
-            throw new BusinessException("创建订单失败");
+            throw new BusinessException("Failed to create order");
         }
 
         for (OrderItem item : orderItems) {
@@ -109,12 +109,12 @@ public class OrderServiceImpl implements OrderService {
         }
         int itemResult = orderItemMapper.batchInsert(orderItems);
         if (itemResult <= 0) {
-            throw new BusinessException("创建订单明细失败");
+            throw new BusinessException("Failed to create order items");
         }
 
         cartMapper.deleteByIds(cartIds);
 
-        logger.info("创建订单成功: orderNo={}, userId={}, totalPrice={}", orderNo, userId, totalPrice);
+        logger.info("Order created successfully: orderNo={}, userId={}, totalPrice={}", orderNo, userId, totalPrice);
 
         return getOrderByOrderNo(orderNo);
     }
@@ -122,12 +122,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderVO getOrderById(Long orderId) {
         if (orderId == null) {
-            throw new BusinessException("订单ID不能为空");
+            throw new BusinessException("Order ID cannot be empty");
         }
 
         OrderInfo orderInfo = orderMapper.selectById(orderId);
         if (orderInfo == null) {
-            throw new BusinessException("订单不存在");
+            throw new BusinessException("Order does not exist");
         }
 
         return convertToOrderVO(orderInfo);
@@ -136,12 +136,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderVO getOrderByOrderNo(String orderNo) {
         if (orderNo == null) {
-            throw new BusinessException("订单号不能为空");
+            throw new BusinessException("Order number cannot be empty");
         }
 
         OrderInfo orderInfo = orderMapper.selectByOrderNo(orderNo);
         if (orderInfo == null) {
-            throw new BusinessException("订单不存在");
+            throw new BusinessException("Order does not exist");
         }
 
         return convertToOrderVO(orderInfo);
@@ -150,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderVO> getUserOrders(Long userId) {
         if (userId == null) {
-            throw new BusinessException("用户ID不能为空");
+            throw new BusinessException("User ID cannot be empty");
         }
 
         List<OrderInfo> orderInfoList = orderMapper.selectByUserId(userId);
@@ -167,12 +167,12 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateOrderStatus(Long orderId, Integer status) {
         if (orderId == null || status == null) {
-            throw new BusinessException("参数不能为空");
+            throw new BusinessException("Parameters cannot be empty");
         }
 
         int result = orderMapper.updateStatus(orderId, status);
         if (result > 0) {
-            logger.info("更新订单状态成功: orderId={}, status={}", orderId, status);
+            logger.info("Order status updated successfully: orderId={}, status={}", orderId, status);
             return true;
         }
         return false;
@@ -182,21 +182,21 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(rollbackFor = Exception.class)
     public boolean cancelOrder(Long orderId) {
         if (orderId == null) {
-            throw new BusinessException("订单ID不能为空");
+            throw new BusinessException("Order ID cannot be empty");
         }
 
         OrderInfo orderInfo = orderMapper.selectById(orderId);
         if (orderInfo == null) {
-            throw new BusinessException("订单不存在");
+            throw new BusinessException("Order does not exist");
         }
 
         if (orderInfo.getStatus() != 0) {
-            throw new BusinessException("只能取消待支付订单");
+            throw new BusinessException("Only pending payment orders can be cancelled");
         }
 
         int result = orderMapper.updateStatus(orderId, 4);
         if (result > 0) {
-            logger.info("取消订单成功: orderId={}", orderId);
+            logger.info("Order cancelled successfully: orderId={}", orderId);
             return true;
         }
         return false;

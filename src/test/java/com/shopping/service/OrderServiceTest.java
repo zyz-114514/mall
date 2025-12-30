@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * 订单服务测试类
+ * Order Service Test Class
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-context.xml"})
@@ -35,31 +35,31 @@ public class OrderServiceTest {
 
     @Before
     public void setUp() {
-        // 先添加商品到购物车
+        // Add product to cart first
         cartService.addToCart(TEST_USER_ID, TEST_PRODUCT_ID, 2);
         
-        // 获取购物车ID
+        // Get cart IDs
         List<com.shopping.vo.CartVO> cartList = cartService.getCartList(TEST_USER_ID);
         List<Long> cartIds = new ArrayList<>();
         for (com.shopping.vo.CartVO cart : cartList) {
             cartIds.add(cart.getId());
         }
         
-        // 创建订单DTO
+        // Create order DTO
         testOrderDTO = new OrderDTO();
-        testOrderDTO.setReceiverName("张三");
+        testOrderDTO.setReceiverName("Zhang San");
         testOrderDTO.setReceiverPhone("13800138000");
-        testOrderDTO.setReceiverAddress("北京市朝阳区测试地址");
+        testOrderDTO.setReceiverAddress("Test Address, Chaoyang District, Beijing");
         testOrderDTO.setCartIds(cartIds);
     }
 
     @Test
     public void testCreateOrder() {
         OrderVO order = orderService.createOrder(TEST_USER_ID, testOrderDTO);
-        assertNotNull("创建订单应该成功", order);
-        assertNotNull("订单号应该被生成", order.getOrderNo());
-        assertEquals("收货人应该匹配", "张三", order.getReceiverName());
-        assertEquals("订单状态应该为待支付", Integer.valueOf(0), order.getStatus());
+        assertNotNull("Create order should succeed", order);
+        assertNotNull("Order number should be generated", order.getOrderNo());
+        assertEquals("Receiver name should match", "Zhang San", order.getReceiverName());
+        assertEquals("Order status should be pending payment", Integer.valueOf(0), order.getStatus());
     }
 
     @Test
@@ -67,8 +67,8 @@ public class OrderServiceTest {
         OrderVO created = orderService.createOrder(TEST_USER_ID, testOrderDTO);
         
         OrderVO found = orderService.getOrderById(created.getId());
-        assertNotNull("应该能找到订单", found);
-        assertEquals("订单ID应该匹配", created.getId(), found.getId());
+        assertNotNull("Should be able to find order", found);
+        assertEquals("Order ID should match", created.getId(), found.getId());
     }
 
     @Test
@@ -76,8 +76,8 @@ public class OrderServiceTest {
         OrderVO created = orderService.createOrder(TEST_USER_ID, testOrderDTO);
         
         OrderVO found = orderService.getOrderByOrderNo(created.getOrderNo());
-        assertNotNull("应该能通过订单号找到订单", found);
-        assertEquals("订单号应该匹配", created.getOrderNo(), found.getOrderNo());
+        assertNotNull("Should be able to find order by order number", found);
+        assertEquals("Order number should match", created.getOrderNo(), found.getOrderNo());
     }
 
     @Test
@@ -85,8 +85,8 @@ public class OrderServiceTest {
         orderService.createOrder(TEST_USER_ID, testOrderDTO);
         
         List<OrderVO> orders = orderService.getUserOrders(TEST_USER_ID);
-        assertNotNull("订单列表不应为空", orders);
-        assertTrue("应该有订单数据", orders.size() > 0);
+        assertNotNull("Order list should not be null", orders);
+        assertTrue("Should have order data", orders.size() > 0);
     }
 
     @Test
@@ -94,10 +94,10 @@ public class OrderServiceTest {
         OrderVO created = orderService.createOrder(TEST_USER_ID, testOrderDTO);
         
         boolean result = orderService.updateOrderStatus(created.getId(), 1);
-        assertTrue("更新订单状态应该成功", result);
+        assertTrue("Update order status should succeed", result);
         
         OrderVO updated = orderService.getOrderById(created.getId());
-        assertEquals("订单状态应该已更新", Integer.valueOf(1), updated.getStatus());
+        assertEquals("Order status should be updated", Integer.valueOf(1), updated.getStatus());
     }
 
     @Test
@@ -105,15 +105,15 @@ public class OrderServiceTest {
         OrderVO created = orderService.createOrder(TEST_USER_ID, testOrderDTO);
         
         boolean result = orderService.cancelOrder(created.getId());
-        assertTrue("取消订单应该成功", result);
+        assertTrue("Cancel order should succeed", result);
         
         OrderVO cancelled = orderService.getOrderById(created.getId());
-        assertEquals("订单状态应该为已取消", Integer.valueOf(4), cancelled.getStatus());
+        assertEquals("Order status should be cancelled", Integer.valueOf(4), cancelled.getStatus());
     }
 
     @Test
     public void testGetAllOrders() {
         List<OrderVO> orders = orderService.getAllOrders();
-        assertNotNull("订单列表不应为空", orders);
+        assertNotNull("Order list should not be null", orders);
     }
 }

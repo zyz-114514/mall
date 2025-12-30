@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public User register(User user) {
         if (user == null || user.getUsername() == null || user.getPassword() == null) {
-            throw new BusinessException("用户名和密码不能为空");
+            throw new BusinessException("Username and password cannot be empty");
         }
 
         int count = userMapper.countByUsername(user.getUsername());
         if (count > 0) {
-            throw new BusinessException("用户名已存在");
+            throw new BusinessException("Username already exists");
         }
 
         if (user.getRole() == null) {
@@ -41,36 +41,36 @@ public class UserServiceImpl implements UserService {
 
         int result = userMapper.insert(user);
         if (result <= 0) {
-            throw new BusinessException("注册失败");
+            throw new BusinessException("Registration failed");
         }
 
-        logger.info("用户注册成功: {}", user.getUsername());
+        logger.info("User registered successfully: {}", user.getUsername());
         return user;
     }
 
     @Override
     public User login(String username, String password) {
         if (username == null || password == null) {
-            throw new BusinessException("用户名和密码不能为空");
+            throw new BusinessException("Username and password cannot be empty");
         }
 
         User user = userMapper.selectByUsernameAndPassword(username, password);
         if (user == null) {
-            throw new BusinessException("用户名或密码错误");
+            throw new BusinessException("Invalid username or password");
         }
 
         if (user.getStatus() == 0) {
-            throw new BusinessException("账号已被禁用");
+            throw new BusinessException("Account has been disabled");
         }
 
-        logger.info("用户登录成功: {}", username);
+        logger.info("User logged in successfully: {}", username);
         return user;
     }
 
     @Override
     public User getUserById(Long id) {
         if (id == null) {
-            throw new BusinessException("用户ID不能为空");
+            throw new BusinessException("User ID cannot be empty");
         }
         return userMapper.selectById(id);
     }
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         if (username == null) {
-            throw new BusinessException("用户名不能为空");
+            throw new BusinessException("Username cannot be empty");
         }
         return userMapper.selectByUsername(username);
     }
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateUser(User user) {
         if (user == null || user.getId() == null) {
-            throw new BusinessException("用户信息不完整");
+            throw new BusinessException("User information is incomplete");
         }
 
         int result = userMapper.updateById(user);
@@ -99,8 +99,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userMapper.getAllUsers();
         } catch (Exception e) {
-            logger.error("获取用户列表失败: {}", e.getMessage());
-            throw new BusinessException("获取用户列表失败");
+            logger.error("Failed to get user list: {}", e.getMessage());
+            throw new BusinessException("Failed to get user list");
         }
     }
 }

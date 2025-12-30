@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户注册 - 在线商品销售平台</title>
+    <title>User Registration - Shopping Mall</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
     <style>
         .register-container {
@@ -20,40 +20,40 @@
     <div class="register-container">
         <div class="card register-card">
             <div class="card-body">
-                <h3 class="card-title text-center mb-4">用户注册</h3>
+                <h3 class="card-title text-center mb-4">User Registration</h3>
                 <form id="registerForm">
                     <div class="form-group">
-                        <label for="username">用户名 *</label>
+                        <label for="username">Username *</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">密码 *</label>
+                        <label for="password">Password *</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">确认密码 *</label>
+                        <label for="confirmPassword">Confirm Password *</label>
                         <input type="password" class="form-control" id="confirmPassword" required>
                     </div>
                     <div class="form-group">
-                        <label for="realName">真实姓名</label>
+                        <label for="realName">Real Name</label>
                         <input type="text" class="form-control" id="realName" name="realName">
                     </div>
                     <div class="form-group">
-                        <label for="email">邮箱</label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
                     <div class="form-group">
-                        <label for="phone">手机号</label>
+                        <label for="phone">Phone</label>
                         <input type="text" class="form-control" id="phone" name="phone">
                     </div>
                     <div class="form-group">
-                        <label for="address">收货地址</label>
+                        <label for="address">Shipping Address</label>
                         <textarea class="form-control" id="address" name="address" rows="2"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">注册</button>
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </form>
                 <div class="text-center mt-3">
-                    <a href="${pageContext.request.contextPath}/user/login">已有账号？立即登录</a>
+                    <a href="${pageContext.request.contextPath}/user/login">Already have an account? Login now</a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
             var confirmPassword = $('#confirmPassword').val();
             
             if (password !== confirmPassword) {
-                alert('两次密码输入不一致');
+                alert('Passwords do not match');
                 return;
             }
 
@@ -89,14 +89,14 @@
                 data: JSON.stringify(userData),
                 success: function(result) {
                     if (result.code === 200) {
-                        alert('注册成功，请登录');
+                        alert('Registration successful, please login');
                         window.location.href = '${pageContext.request.contextPath}/user/login';
                     } else {
                         alert(result.message);
                     }
                 },
                 error: function() {
-                    alert('注册失败，请稍后重试');
+                    alert('Registration failed, please try again later');
                 }
             });
         });
