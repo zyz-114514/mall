@@ -144,28 +144,28 @@ shopping-mall/
 ## Agile Development Iterations
 
 ### Sprint 1 - Basic Architecture ✅
-- [x] Build SSM framework
-- [x] Configure database connection
-- [x] Design database table structure
-- [x] Implement basic CRUD
+-  Build SSM framework
+-  Configure database connection
+-  Design database table structure
+-  Implement basic CRUD
 
 ### Sprint 2 - Core Functions ✅
-- [x] User registration and login
-- [x] Product display and search
-- [x] Shopping cart functionality
-- [x] Order creation
+-  User registration and login
+-  Product display and search
+-  Shopping cart functionality
+-  Order creation
 
 ### Sprint 3 - Admin Functions ✅
-- [x] Admin backend
-- [x] Product management
-- [x] Order management
-- [x] User management
+-  Admin backend
+-  Product management
+-  Order management
+-  User management
 
 ### Sprint 4 - Testing and Optimization ✅
-- [x] Write unit tests
-- [x] Code refactoring and optimization
-- [x] Exception handling improvement
-- [x] Documentation writing
+-  Write unit tests
+-  Code refactoring and optimization
+-  Exception handling improvement
+-  Documentation writing
 
 ## Database Design
 
@@ -220,31 +220,9 @@ See `database/schema.sql` for detailed design
 - `GET /order/list` - Order list
 - `GET /order/{id}` - Order details
 
-## Contributing
-
-Issues and Pull Requests are welcome!
-
-1. Fork this repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'feat: Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Submit Pull Request
-
-## License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details
-
 ## Author
 
-- **zyz-114514** - [GitHub](https://github.com/zyz-114514)
-
-## Acknowledgments
-
-- Spring Framework
-- MyBatis
-- Bootstrap
-- All open source contributors
-
----
-
-⭐ If this project helps you, please give it a Star!
+赵宇哲：Management Function
+王嘉艺：Core Function
+徐宏成：Test Optimization
+孙永超：Infrastructure
